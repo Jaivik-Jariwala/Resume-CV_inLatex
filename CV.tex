@@ -1,281 +1,297 @@
-%-----------------------------------------------------------------------------------------------------------------------------------------------%
-%	The MIT License (MIT)
-%
-%	Copyright (c) 2021 Jaivik Jariwala
-%
-%	Permission is hereby granted, free of charge, to any person obtaining a copy
-%	of this software and associated documentation files (the "Software"), to deal
-%	in the Software without restriction, including without limitation the rights
-%	to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-%	copies of the Software, and to permit persons to whom the Software is
-%	furnished to do so, subject to the following conditions:
-%	
-%	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-%	IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-%	FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-%	AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-%	LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-%	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-%	THE SOFTWARE.
-%	
-%
-%-----------------------------------------------------------------------------------------------------------------------------------------------%
+\documentclass[11pt]{article}
 
-% article class because we want to fully customize the page and not use a cv template
-\documentclass[a4paper,16pt]{article}
+% ================ PACKAGES ====================
 
-%----------------------------------------------------------------------------------------
-%	FONT
-%----------------------------------------------------------------------------------------
-
-% % fontspec allows you to use TTF/OTF fonts directly
-% \usepackage{fontspec}
-% \defaultfontfeatures{Ligatures=TeX}
-
-% % modified for ShareLaTeX use
-% \setmainfont[
-% SmallCapsFont = Fontin-SmallCaps.otf,
-% BoldFont = Fontin-Bold.otf,
-% ItalicFont = Fontin-Italic.otf
-% ]
-% {Fontin.otf}
-
-%----------------------------------------------------------------------------------------
-%	PACKAGES
-%----------------------------------------------------------------------------------------
-\usepackage{url}
-\usepackage{parskip} 	
-
-%other packages for formatting
-\RequirePackage{color}
-\RequirePackage{graphicx}
-\usepackage[usenames,dvipsnames]{xcolor}
-\usepackage[scale=0.9]{geometry}
-
-%tabularx environment
-\usepackage{tabularx}
-
-%for lists within experience section
+\usepackage[reset, a4paper, margin=6mm, top=7mm, right=4mm]{geometry}
+% text alignment
+\usepackage{ragged2e}
+% loremipsum
+\usepackage{lipsum}
+% text color
+\usepackage{color}
+\usepackage{xcolor}
+% underline
+\usepackage{ulem}
+\usepackage{contour}
+% multiple columns
+\usepackage{paracol}
+% custom fonts
+\usepackage{fontspec}
+% paper bg
+\usepackage{eso-pic}
+% icons
+\usepackage{fontawesome5}
+% hyperlinks
+\usepackage{hyperref}
+% better itemize
 \usepackage{enumitem}
 
-% centered version of 'X' col. type
-\newcolumntype{C}{>{\centering\arraybackslash}X} 
+% ================ SETTINGS ====================
 
-%to prevent spillover of tabular into next pages
-\usepackage{supertabular}
-\usepackage{tabularx}
-\newlength{\fullcollw}
-\setlength{\fullcollw}{0.47\textwidth}
+\setlist[itemize]{noitemsep, topsep=-2pt, leftmargin=2ex}
 
-%custom \section
-\usepackage{titlesec}				
-\usepackage{multicol}
-\usepackage{multirow}
+\setromanfont{CormorantGaramond}
+\setsansfont{SourceSerifPro}
+\renewcommand{\familydefault}{\rmdefault}
 
-%CV Sections inspired by: 
-%http://stefano.italians.nl/archives/26
-\titleformat{\section}{\Large\scshape\raggedright}{}{0em}{}[\titlerule]
-\titlespacing{\section}{0pt}{10pt}{10pt}
+% no page numbers and the sorts
+\thispagestyle{empty}
+% no indentation at beginning of paragraph
+\parindent=0pt
+% for underline
+\renewcommand{\ULdepth}{3pt}
+\renewcommand{\ULthickness}{0.5pt}
+\contourlength{2.0pt}
 
-%for publications
-\usepackage[style=authoryear,sorting=ynt, maxbibnames=2]{biblatex}
+% for links
+\hypersetup{
+    colorlinks=false,
+    pdfborder = {0 0 0},
+}
 
-%Setup hyperref package, and colours for links
-\usepackage[unicode, draft=false]{hyperref}
-\definecolor{linkcolour}{rgb}{0,0.2,0.6}
-\hypersetup{colorlinks,breaklinks,urlcolor=linkcolour,linkcolor=linkcolour}
-\addbibresource{citations.bib}
-\setlength\bibitemsep{1em}
+% no hyphenation
+\tolerance=1
+\emergencystretch=\maxdimen
+\hyphenpenalty=10000
+\hbadness=10000
 
-%for social icons
-\usepackage{fontawesome5}
+% ================ MACROS ======================
 
-%debug page outer frames
-%\usepackage{showframe}
+\newfontfamily\titlethin{CormorantGaramond-Light}
+\newfontfamily\titlethick{CormorantGaramond-Medium}
+\newfontfamily\titlebold{CormorantGaramond-Bold}
+\newfontfamily\normaltext{SourceSerifPro}
 
-%----------------------------------------------------------------------------------------
-%	BEGIN DOCUMENT
-%----------------------------------------------------------------------------------------
+\newcommand{\resumetitle}[3]{
+    \AddToShipoutPictureBG{
+        \AtPageUpperLeft {
+        \raisebox{-0.09\paperheight}{
+            \color{black!85}\rule{2\paperwidth}{\paperheight}}
+        }}
+    \begin{Center}
+        \begingroup
+        \titlethin
+        \color{black!10}\Huge{#1}
+        \titlethick
+        \color{black!5}\Huge{#2} \\
+        \vspace{2mm}
+        \textrm{\color{black!15}\Large{#3}}
+        \endgroup
+    \end{Center}
+    \vspace{7mm}
+}
+
+\newcommand{\betteruline}[1]{
+    \uline{#1}
+}
+
+\newcommand{\sectiontitle}[1]{
+    \begingroup
+        \titlebold
+        \betteruline{\Large\uppercase{#1}  }
+        \vspace{1.7mm}
+    \endgroup
+}
+
+\newcommand{\sectioncontent}[1]{
+    \begingroup
+        \begin{FlushLeft}
+        \vspace{-3mm}
+        \sffamily\small#1
+        \end{FlushLeft}
+    \endgroup
+    \vspace{2mm}
+}
+
+\newcommand{\job}[3]{
+    \begingroup
+        \textbf{\small#1} - \small#2
+        \hfill\color{black!70}\small{#3}
+    \endgroup
+}
+
+\newcommand{\project}[2]{
+    \begingroup
+        \textbf{\small#1}
+        \hfill\color{black!70}\small{#2}
+    \endgroup
+}
+
+\newcommand{\spacevv}{
+    \vspace{2mm}
+}
+
+\newcommand{\honor}[2]{
+    \textcolor{black!70}{#1} - #2 \\
+    \vspace{1.5mm}
+}
+
 \begin{document}
+    \resumetitle{Jaivik}{Jariwala} {
+        \href{https://github.com/Jaivik-Jariwala}{\raisebox{-0.05\height}\faGithub\ Jaivik-Jariwala} \ $|$ \ 
+        \href{https://linkedin.com/in/jaivik-jariwala}{\raisebox{-0.05\height}\faLinkedin\ jaivik-jariwala} \ $|$ \ 
+        \href{mailto:jaivikjariwala111@gmail.com}{\raisebox{-0.05\height}\faEnvelope \ jaivikjariwala111@gmail.com} \ $|$ \ 
+        \href{tel:+917490033349}{\raisebox{-0.05\height}\faMobile \ +917490033349} \\
+        }
 
-% non-numbered pages
-\pagestyle{empty} 
+    \columnratio{0.31}
+    \setlength{\columnsep}{7mm}
+    \begin{paracol}{2}
 
-%----------------------------------------------------------------------------------------
-%	TITLE
-%----------------------------------------------------------------------------------------
+    \sectiontitle{about me}
+    \sectioncontent{
+        B.Tech student, ML Engineer, Researcher, Web/Graphic Freelancer, Intern at Nothing Technology Limited, and President of EnviroFreaks, skilled in Machine Learning, deep learning, cloud computing, graphic design, web development, and Metaverse tech.
+    }
 
-% \begin{tabularx}{\linewidth}{ @{}X X@{} }
-% \huge{Your Name}\vspace{2pt} & \hfill \emoji{incoming-envelope} email@email.com \\
-% \raisebox{-0.05\height}\faGithub\ username \ | \
-% \raisebox{-0.00\height}\faLinkedin\ username \ | \ \raisebox{-0.05\height}\faGlobe \ mysite.com  & \hfill \emoji{calling} number
-% \end{tabularx}
+    \sectiontitle{education}
+    \sectioncontent{
+        \textbf{B.Tech in Computer Science} \\
+        Pandit Deendayal Energy University \\
+        \textcolor{black!70}{2021-Currently} \\
+        \vspace{2mm}
+        \textbf{Higher (12th) and \\
+        Higher Secondary (10th) Education } \\
+        Riverdale Academy (A1)\\
+        L.P. Savani International(A1)\\
+        \textcolor{black!70}{2018-2021} \\
+    }
 
-\begin{tabularx}{\linewidth}{@{} C @{}}
-\Huge{Jaivik Jariwala} \\[7.5pt]
-\href{https://github.com/Jaivik-Jariwala}{\raisebox{-0.05\height}\faGithub\ Jaivik-Jariwala} \ $|$ \ 
-\href{https://linkedin.com/in/jaivik-jariwala}{\raisebox{-0.05\height}\faLinkedin\ jaivik-jariwala} \ $|$ \ 
-\href{mailto:jaivikjariwala111@gmail.com}{\raisebox{-0.05\height}\faEnvelope \ jaivikjariwala111@gmail.com} \ $|$ \ 
-\href{tel:+917490033349}{\raisebox{-0.05\height}\faMobile \ +917490033349} \\
-\end{tabularx}
+    \sectiontitle{links}
+    \sectioncontent{
+        \href{https://github.com/Jaivik-Jariwala}{\raisebox{-0.05\height}\faGithub\ GitHub} \hspace{2.1mm} \\
+        \faIcon{linkedin}
+        \href{https://linkedin.com/in/jaivik-jariwala}{linkedin} \\
+        \href{mailto:jaivikjariwala111@gmail.com}{\raisebox{-0.05\height}\faEnvelope \ Mail} \\\
+    }
 
-%----------------------------------------------------------------------------------------
-% Summary
-%----------------------------------------------------------------------------------------
+    \sectiontitle{Certifications}
+    \sectioncontent{
+        \honor{13th August 2023\\}{Machine Learning Specialization \\ Deeplearning.ai}\\
+        \\
+        \honor{26th June 2023\\}{Generative Adversarial Networks Specialization \\ Deeplearning.ai}\\
+    }
 
-%Summary
-\section{Summary}
-\text{Jaivik Jariwala is B.Tech student at PDEU , ML Engineer , Researcher @PDEU and Web/Graphic Freelancer ,with expertise in machine learning He is an Intern at Nothing Technology Limited and President of EnviroFreaks, promoting environmental stewardship. Skilled in Machine Learning, deep learning, cloud computing, graphic designing, and web development along Metaverse.}
+    \sectiontitle{Hobbies \& Interests}
+    \sectioncontent{
+        Est sit amet facilisis magna etiam.\\
+        Ut eu sem integer vitae justo eget magna fermentum iaculis. \\
+    }
 
-%----------------------------------------------------------------------------------------
-% EXPERIENCE
-%----------------------------------------------------------------------------------------
+    \sectiontitle{Skills}
+\begin{itemize}[left=0pt]
+    \item \textbf{Machine Learning} \\
+    \begin{minipage}{0.1\linewidth}
+        \hspace*{1mm}\rule{4.5cm}{0.2cm} % Change the length (3cm) to adjust the skill level
+    \end{minipage}
+    
+    \item \textbf{Deep Learning} \\
+    \begin{minipage}{0.1\linewidth}
+        \hspace*{1mm}\rule{4.5cm}{0.2cm} % Change the length (3cm) to adjust the skill level
+    \end{minipage}
+    
+    \item \textbf{Web Development} \\
+    \begin{minipage}{0.1\linewidth}
+        \hspace*{1mm}\rule{3.0cm}{0.2cm} % Change the length (2.25cm) to adjust the skill level
+    \end{minipage}
 
-%Experience
-\section{Work Experience}
-\begin{tabularx}{\linewidth}{ @{}l r@{} }
-\textbf{Intern} &\hfill July 2023 - Aug 2023 \\
-\textit{Nothing Technology Limited}\\
-\multicolumn{2}{@{}X@}{Joining as a Part of Generation Nothing, We worked in Dev-Community and on variety of projects as Analyst for Marketing.} \\
-\\
-\textbf{President} &\hfill Jun 2023 - present \\
-\textit{EnviroFreaks} \\
-\multicolumn{2}{@{}X@}{As President of the Environment Club, I lead resource management and impactful events, inspiring environmental stewardship. We promote sustainability, engage the community, and address pressing challenges for a greener future.}\\ 
-\end{tabularx}
+        \item \textbf{Cloud Computing} \\
+    \begin{minipage}{0.1\linewidth}
+        \hspace*{1mm}\rule{4cm}{0.2cm} % Change the length (2.25cm) to adjust the skill level
+    \end{minipage}
 
-%----------------------------------------------------------------------------------------
-%	Licenses and Certifications
-%----------------------------------------------------------------------------------------
+    \item \textbf{Python} \\
+    \begin{minipage}{0.1\linewidth}
+        \hspace*{1mm}\rule{5cm}{0.2cm} % Change the length (2.25cm) to adjust the skill level
+    \end{minipage}
 
-\section{Licenses and Certifications}
-\begin{tabularx}{\linewidth}{@{}l X@{}}
-\textbf{Machine Learning Specialization} & \hfill \href{https://coursera.org/share/e5f69c8847cbb428924e6137cabc85cb}{Certificate} \\
-Issuing Authority: DeepLearning.AI, Coursera, Stanford CPD, UVM \\
-Issue Date: 13th August 2023 \\
-Credential ID: 2BA4T29 \\
-\\
-\textbf{Generative Adversarial Networks Specialization} & \hfill \href{https://coursera.org/share/d7f6fa430466230cfed92de8a35e64da}{Certificate} \\
-Issuing Authority: DeepLearning.AI, Coursera, Stanford CPD, UVM \\
-Issue Date: 26th June 2023 \\
-Credential ID: CX9VWNDANWJ3 \\
-\end{tabularx}
-
-%----------------------------------------------------------------------------------------
-%	Projects
-%----------------------------------------------------------------------------------------
-\section{Projects}
-\begin{tabularx}{\linewidth}{ @{}l r@{} }
-\textbf{Artificial Fiber for Robotic Arm} &\hfill Dec 2023 - present \\
-\multicolumn{2}{@{}X@}{Inspired from human Arm structure and network of communication, designed a Arm based on similar structure at fiber level of tissue and recreating the muscle using along building a network of communication using relay and artificial network just like nervous system of arm . However still manufacturing is in progress at PDEU SRP '22-23.}\\
-\\
-\textbf{Autonomous Versatile Modular Drone} &\hfill Jan 2023 - Jun 2023 \\
-\multicolumn{2}{@{}X@}{Developing an Autonomous Drone for use in versatile conditions along with being simply modular to carry a variety of payloads and delivery its mission.}\\
-\\
-\textbf{Only Grants} &\hfill Feb 2023 \\
-\multicolumn{2}{@{}X@}{Website for finding the best suitable Grants available for Research and Development projects across with details along a Community for Researcher and deployed ML model for recommending profiles and grants according to one's portfolio.}\\
-\\
-\textbf{Finvest} &\hfill Oct 2022 \\
-\multicolumn{2}{@{}X@}{WIE: WebApp-based Incubation Centre for Women's Startup and open to all for investing in the company and creating a virtual incubation centre for women-in-engineering.}\\
-\\ 
-\end{tabularx}
-
-%----------------------------------------------------------------------------------------
-%	EDUCATION
-%----------------------------------------------------------------------------------------
-\section{Education}
-\begin{tabularx}{\linewidth}{@{}l X@{}}	
-2021 - present & B.Tech Degree at \textbf{Pandit Deendayal Energy University} \hfill (CGPA: 9.39) \\ 
-\\2021 & Class 12th at \textbf{Riverdale Academy (GSEB) }  \hfill  (A1) \\
-\\2018-2019 & Class 10th at \textbf{L.P. Savani International School (CBSE) } \hfill  (A1) \\
-\end{tabularx}
-
-%----------------------------------------------------------------------------------------
-%	Conference and Events
-%----------------------------------------------------------------------------------------
-
-\section{Conference and Events}
-{\linewidth}{{ 
-\textbf{IEEE Wireless, Antenna and Microware Symposium 2023} \\
-As Volunteer Coordinator for WAMS 2023, I managed paper sessions, led teams, organized a successful cultural night, and had the privilege of networking with some of the brilliant minds in the field. Demonstrated strong organizational and teamwork skills while ensuring smooth sessions and an engaging cultural event.\\
-
-\textbf{FigmaConfig 2023} \\
-I participated in the Figma Config event, where I gained valuable insights into the latest trends and advancements in design and collaboration. This experience allowed me to explore innovative approaches within the design industry and learn from experts in the field.\\
-
-\textbf{Amazon AWS India Summit 2023}  \\
-I engaged in the Amazon AWS India Summit, a transformative event that provided a comprehensive overview of cloud technologies and their real-world applications. Through this summit, I deepened my understanding of AWS services, cloud architecture, and emerging trends in the tech industry. This experience broadened my knowledge and highlighted the significance of cloud computing in driving modern business solutions..\\
-
-\textbf{SVNIT Hackathon Dotslash 6.0}  \\
-I engaged in the Amazon AWS India Summit, a transformative event that provided a comprehensive overview of cloud technologies and their real-world applications. Through this summit, I deepened my understanding of AWS services, cloud architecture, and emerging trends in the tech industry. This experience broadened my knowledge and highlighted the significance of cloud computing in driving modern business solutions..\\
-
-
-\textbf{DAIICT Hackathon Tic-Tac-Toe}  \\
-I engaged in the Amazon AWS India Summit, a transformative event that provided a comprehensive overview of cloud technologies and their real-world applications. Through this summit, I deepened my understanding of AWS services, cloud architecture, and emerging trends in the tech industry. This experience broadened my knowledge and highlighted the significance of cloud computing in driving modern business solutions..\\
-    % Remove this line
-\end{tabularx}
-%----------------------------------------------------------------------------------------
-%	Volunteer
-%----c------------------------------------------------------------------------------------
-\section{Volunteer}
-\begin{tabularx}{\linewidth}{ @{}l r@{} }
-\textbf{Senior Graphic Designer} \hfill Jun 2023 - present \\
-\textit{Symmetry}
-\\
-\begin{itemize}
-    \item Works on Designing Content and Give Hands-on Workshop for Adobe Professional (Photoshop)
-\end{itemize}\\
-\\
-\textbf{Senior Graphic Designer} \hfill Jun 2021 - present \\
-\textit{EnviroFreaks}
-\\
-\begin{itemize}
-    \item Works on Designing Content and Creation along with team management and training.
-\end{itemize}\\\\
-\textbf{PR and Publicity Head} \hfill Jun 2022 - Jun 2023 \\
-\textit{EnviroFreaks}
-\\
-\begin{itemize}
-    \item Works on Designing Content and Creation along with team management and training.
-\end{itemize}\\\\
-\textbf{Graphic Design Head} \hfill Aug 2022 - Jun 2023  \\
-\textit{Apogee3}\\
-\begin{itemize}
-    \item Works on Designing Content and Creation along with team management and training.
+    \item \textbf{Database} \\
+    \begin{minipage}{0.1\linewidth}
+        \hspace*{1mm}\rule{4cm}{0.2cm} % Change the length (2.25cm) to adjust the skill level
+    \end{minipage}
+    % Add more skills as needed
 \end{itemize}
-\end{tabularx}
-%----------------------------------------------------------------------------------------
-%	SKILLS
-%----------------------------------------------------------------------------------------
-\section{Skills}
-\begin{tabularx}{\linewidth}{ @{}l X@{}}
-\textbf{Machine Learning} \\
-\multicolumn{2}{@{}X@{}}{\textit{Linear Regression, Logistic Regression, Gradient Descent, Supervised Learning, Regularization, Neural Network, Xgboost, Tensorflow, Collaborative Filtering, Recommender Systems, Reinforcement Learning, Anomaly Detection, Content Filtering.}} \\
-\\
-\textbf{Deep Learning} \\
-\multicolumn{2}{@{}X@{}}{\textit{Neural Network Architecture, Backpropogation, Forwardpropogation, Tensorflow, Mathematical Optimization, Facial Recognition System, Object detection and Segmentation, CNNs, RNNs, GRUs, Attention models, Multi-Task learning, Inductive Transfer , Hyperparameter Tuning.}} \\
-\\
-\textbf{Cloud Computing} \\
-\multicolumn{2}{@{}X@{}}{\textit{Statistical Data Bias Detection, Multiclass Classification with FastText, Data ingestion, Automatic Machine Learning, ML Pipelines, BERT Deployment, Feature Engineering, Distributed Models, A/B Testing Model and Deployment, Cost Saving and Performance Improvements, Google Compute Engine, Google App Engine, GCP, Load balancing, VPNs, AutoScaling, GCP infrastructure, Load Balancing.}} \\
-\\
-\textbf{Project Management} \\
-\multicolumn{2}{@{}X@{}}{\textit{Organizational Culture, Career Development, Strategic Thinking, Change Management, Project Management, Stakeholder Management, Business Writing, Project Charter, Project Planning, Risk Management, Task Estimation, Quality Management, Project Execution, Scrum.}} \\
-\\
-\textbf{Python} \\
-\multicolumn{2}{@{}X@{}}{\textit{Data Anaylsis, Programming , DSA , DAA , Django, Object-relational mapping, Data Visualisation, Architecture, Web-framework, data cleaning, Debugging, control flow.}} \\
-\\
-\textbf{Graphic Designing and Ui/Ux} \\
-\multicolumn{2}{@{}X@{}}{\textit{Adobe illustrator, Adobe Photoshop, Adobe Firefly, Adobe XD, Adobe Indesign, Adobe Aftereffects , Adobe Premiere Pro , Prototyping, WireFraming, Usability Testing, Figma, blender. }} \\
-\\
-\textbf{Database} \\
-\multicolumn{2}{@{}X@{}}{\textit{Database Management System, RDBMS, Database design, Database Architecture, Postresql, MySQL, SQL, MongoDB, Database Security, Database Servers, Database Administration,  Data Pipelines, NoSQL, SparkML, Cloud Database.}} \\
-\\
-\textbf{Web Development} \\
-\multicolumn{2}{@{}X@{}}{\textit{Javascript, ReactJs, NodeJs, Django, Flask, solidity(brownie), Metamask, Polygon, web3-intro, Tailwindcss, HTML, CSS, Metaverse, ER, XR, MR, AR, VR, WebXR, Unreal Engine, Unity.  }} \\
 
+    
+    \switchcolumn
 
-\end{tabularx}]
+    \sectiontitle{experience}
+    \sectioncontent{
 
+      \job{Intern}{Nothing.Tech}{June 2023 - Aug 2023}
+      \begin{itemize}
+        \item Joining as a Part of Generation Nothing Student Ambassador program, We worked in Dev-Community and on a variety of projects as Analyst for Marketing. 
+      \end{itemize}
+      \spacevv
 
-\vfill
-\center{\footnotesize Last updated: \today}
+      \job{President}{EnviroFreaks}{June 2023}
+      \begin{itemize}
+        \item As President of the Environment Club, I lead resource management and impactful events, inspiring environmental stewardship. We promote sustainability, engage the community, and address pressing challenges for a greener future.
+      \end{itemize}
+    }
+
+    \sectiontitle{personal projects}
+    \sectioncontent{
+
+        \project{\href{example.com}{Artificial Fiber for Robotic Arm}}{Dec 2022}
+        \begin{itemize}
+            \item Inspired from human Arm structure and network of communication, designed a Arm based on similar structure at fiber level of tissue and recreating the muscle using along building a network of communication using relay and artificial network just like nervous system of arm . However still manufacturing is in progress at PDEU SRP '22-23.
+        \end{itemize}
+        \spacevv
+       
+        \project{\href{example.com}{Autonomous Versatile Modular Drone}}{Dec 2022 - June 2023}
+        \begin{itemize}
+            \item  Developing an Autonomous Drone for use in versatile conditions along with being simply modular to carry a variety of payloads and delivery its mission.
+        \end{itemize}
+        \spacevv
+
+        \project{\href{example.com}{Only Grants}}{date}
+        \begin{itemize}
+            \item Website for finding the best suitable Grants available for Research and Development projects across with details along a Community for Researcher and deployed ML model for recommending profiles and grants according to one's portfolio. This project was made for SVNIT Dotslash 6.0 finals at SVNIT campus
+        \end{itemize}
+        \spacevv
+
+    }
+
+    \sectiontitle{volunteering}
+    \sectioncontent{
+      
+          \job{Senior Graphic Designer}{Symmetry}{Sept 2022 - Aug 2023}
+          \begin{itemize}
+            \item Works on Designing Content, Participated IFP and Give Hands-on Workshop for Adobe Professional (Photoshop)
+          \end{itemize}
+          \spacevv
+        
+          \job{PR and Marketing Head}{EnviroFreaks}{Aug 2022 - June 2022}
+          \begin{itemize}
+            \item I served as a dedicated volunteer and Marketing Head for environmental initiatives, passionately advocating for a sustainable future.
+          \end{itemize}
+        
+          \job{Graphic Design Head}{Apogee3}{Aug 2022 - Apr 2023}
+          \begin{itemize}
+            \item I was a founding member and served as the Head of Graphic Design and Editing at the Aerospace Club, contributing to its visual identity and content excellence.
+          \end{itemize}
+          \spacevv
+
+    }
+    
+    \sectiontitle{Events}
+    \sectioncontent{
+      
+          \job{Hackathons}{}{since Oct 2022}
+          \begin{itemize}
+            \item I've actively competed in hackathons, demonstrating strong problem-solving skills. From DAIICT's Tic-Tac-Toe to SVNIT's Dotslash 6.0 and Hack Out, I thrived in fast-paced coding challenges. I also engaged in online hackathons, focusing on Blockchain and ML, to explore cutting-edge tech and innovate. These experiences sharpened my skills and deepened my passion for tech-driven problem-solving
+          \end{itemize}
+          \spacevv
+
+          \job{Conferences}{}{}
+          \begin{itemize}
+            \item In 2023, I actively participated in three significant events. Firstly, as the Volunteer Coordinator for WAMS 2023, I managed paper sessions, led teams, and organized a successful cultural night, networking with brilliant minds in the field. Secondly, I took part in FigmaConfig 2023, gaining insights into design trends and innovative approaches. Lastly, I engaged in the transformative Amazon AWS India Summit, deepening my understanding of cloud technologies and their real-world applications, broadening my knowledge in cloud computing's significance for modern business solutions.
+          \end{itemize}
+          \spacevv
+    }
+
+    \normaltext \hfill \tiny Last updated \today
+
+    \end{paracol}
 
 \end{document}
