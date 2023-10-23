@@ -1,0 +1,294 @@
+\documentclass[11pt]{article}
+
+% ================ PACKAGES ====================
+
+\usepackage[reset, a4paper, margin=6mm, top=7mm, right=4mm]{geometry}
+% text alignment
+\usepackage{ragged2e}
+% loremipsum
+\usepackage{lipsum}
+% text color
+\usepackage{color}
+\usepackage{xcolor}
+% underline
+\usepackage{ulem}
+\usepackage{contour}
+% multiple columns
+\usepackage{paracol}
+% custom fonts
+\usepackage{fontspec}
+% paper bg
+\usepackage{eso-pic}
+% icons
+\usepackage{fontawesome5}
+% hyperlinks
+\usepackage{hyperref}
+% better itemize
+\usepackage{enumitem}
+
+% ================ SETTINGS ====================
+
+\setlist[itemize]{noitemsep, topsep=-2pt, leftmargin=2ex}
+
+\setromanfont{CormorantGaramond}
+\setsansfont{SourceSerifPro}
+\renewcommand{\familydefault}{\rmdefault}
+
+% no page numbers and the sorts
+\thispagestyle{empty}
+% no indentation at beginning of paragraph
+\parindent=0pt
+% for underline
+\renewcommand{\ULdepth}{3pt}
+\renewcommand{\ULthickness}{0.5pt}
+\contourlength{2.0pt}
+
+% for links
+\hypersetup{
+    colorlinks=false,
+    pdfborder = {0 0 0},
+}
+
+% no hyphenation
+\tolerance=1
+\emergencystretch=\maxdimen
+\hyphenpenalty=10000
+\hbadness=10000
+
+% ================ MACROS ======================
+
+\newfontfamily\titlethin{CormorantGaramond-Light}
+\newfontfamily\titlethick{CormorantGaramond-Medium}
+\newfontfamily\titlebold{CormorantGaramond-Bold}
+\newfontfamily\normaltext{SourceSerifPro}
+
+\newcommand{\resumetitle}[3]{
+    \AddToShipoutPictureBG{
+        \AtPageUpperLeft {
+        \raisebox{-0.09\paperheight}{
+            \color{black!85}\rule{2\paperwidth}{\paperheight}}
+        }}
+    \begin{Center}
+        \begingroup
+        \titlethin
+        \color{black!10}\Huge{#1}
+        \titlethick
+        \color{black!5}\Huge{#2} \\
+        \vspace{2mm}
+        \textrm{\color{black!15}\Large{#3}}
+        \endgroup
+    \end{Center}
+    \vspace{7mm}
+}
+
+\newcommand{\betteruline}[1]{
+    \uline{#1}
+}
+
+\newcommand{\sectiontitle}[1]{
+    \begingroup
+        \titlebold
+        \betteruline{\Large\uppercase{#1}  }
+        \vspace{1.7mm}
+    \endgroup
+}
+
+\newcommand{\sectioncontent}[1]{
+    \begingroup
+        \begin{FlushLeft}
+        \vspace{-3mm}
+        \sffamily\small#1
+        \end{FlushLeft}
+    \endgroup
+    \vspace{2mm}
+}
+
+\newcommand{\job}[3]{
+    \begingroup
+        \textbf{\small#1} - \small#2
+        \hfill\color{black!70}\small{#3}
+    \endgroup
+}
+
+\newcommand{\project}[2]{
+    \begingroup
+        \textbf{\small#1}
+        \hfill\color{black!70}\small{#2}
+    \endgroup
+}
+
+\newcommand{\spacevv}{
+    \vspace{2mm}
+}
+
+\newcommand{\honor}[2]{
+    \textcolor{black!70}{#1} - #2 \\
+    \vspace{1.5mm}
+}
+
+\begin{document}
+    \resumetitle{Punyata}{Bhagat} {
+        \href{https://www.linkedin.com/in/punyata-bhagat-01470025a/}{\raisebox{-0.05\height}\faLinkedin\ Punyata-Bhagat} \ $|$ \ 
+        \href{mailto:punyata.bhagat@sot.pdpu.ac.in.com}{\raisebox{-0.05\height}\faEnvelope \ punyata.bhagat@sot.pdpu.ac.in} \ $|$ \ 
+        \href{tel:+91 99796 10080}{\raisebox{-0.05\height}\faMobile \ +91 99796 10080} \\
+        }
+
+    \columnratio{0.31}
+    \setlength{\columnsep}{7mm}
+    \begin{paracol}{2}
+
+    \sectiontitle{about me}
+    \sectioncontent{
+        Experienced Executive Assistant with expertise in travel management, expense tracking, and scheduling. Skilled in maintaining office efficiency, coordinating meetings, and transcribing minutes. Strong in customer service, problem-solving, and communication. Organized, dependable, and willing to take on extra responsibilities to meet team goals.    }
+
+    \sectiontitle{education}
+    \sectioncontent{
+        \textbf{Bachelor of Commerce} \\
+        Shri Sahajanand Arts & Commerce \\
+        \textcolor{black!70}{July-2001 to August-2004} \\
+        \vspace{2mm}
+        \textbf{Higher (12th) and \\
+        Higher Secondary (10th) Education } \\
+        Riverdale Academy (A1)\\
+        L.P. Savani International(A1)\\
+        \textcolor{black!70}{2018-2021} \\
+    }
+
+    \sectiontitle{links}
+    \sectioncontent{
+        \href{https://github.com/Jaivik-Jariwala}{\raisebox{-0.05\height}\faGithub\ GitHub} \hspace{2.1mm} \\
+        \faIcon{linkedin}
+        \href{https://linkedin.com/in/jaivik-jariwala}{linkedin} \\
+        \href{mailto:jaivikjariwala111@gmail.com}{\raisebox{-0.05\height}\faEnvelope \ Mail} \\\
+    }
+    \sectiontitle{Certifications}
+    \sectioncontent{
+        \honor{13th August 2023\\}{Machine Learning Specialization \\ Deeplearning.ai}\\
+        \\
+        \honor{26th June 2023\\}{Generative Adversarial Networks Specialization \\ Deeplearning.ai}\\
+    }
+    \sectiontitle{Hobbies \& Interests}
+    \sectioncontent{
+       Passionate about global exploration and culture immersion. Dedicated to advancing technology through Machine Learning and BioRobotics\\
+    }
+
+    \sectiontitle{Skills}
+\begin{itemize}[left=0pt]
+    \item \textbf{Machine Learning} \\
+    \begin{minipage}{0.1\linewidth}
+        \hspace*{1mm}\rule{4.5cm}{0.2cm} % Change the length (3cm) to adjust the skill level
+    \end{minipage}
+    
+    \item \textbf{Deep Learning} \\
+    \begin{minipage}{0.1\linewidth}
+        \hspace*{1mm}\rule{4.5cm}{0.2cm} % Change the length (3cm) to adjust the skill level
+    \end{minipage}
+    
+    \item \textbf{Web Development} \\
+    \begin{minipage}{0.1\linewidth}
+        \hspace*{1mm}\rule{3.0cm}{0.2cm} % Change the length (2.25cm) to adjust the skill level
+    \end{minipage}
+
+        \item \textbf{Cloud Computing} \\
+    \begin{minipage}{0.1\linewidth}
+        \hspace*{1mm}\rule{4cm}{0.2cm} % Change the length (2.25cm) to adjust the skill level
+    \end{minipage}
+
+    \item \textbf{Python} \\
+    \begin{minipage}{0.1\linewidth}
+        \hspace*{1mm}\rule{5cm}{0.2cm} % Change the length (2.25cm) to adjust the skill level
+    \end{minipage}
+
+    \item \textbf{Database} \\
+    \begin{minipage}{0.1\linewidth}
+        \hspace*{1mm}\rule{4cm}{0.2cm} % Change the length (2.25cm) to adjust the skill level
+    \end{minipage}
+    % Add more skills as needed
+\end{itemize}
+
+    
+    \switchcolumn
+
+    \sectiontitle{experience}
+    \sectioncontent{
+
+      \job{Intern}{Nothing.Tech}{June 2023 - Aug 2023}
+      \begin{itemize}
+        \item Joining as a Part of Generation Nothing Student Ambassador program, We worked in Dev-Community and on a variety of projects as Analyst for Marketing. 
+      \end{itemize}
+      \spacevv
+
+      \job{President}{EnviroFreaks}{June 2023}
+      \begin{itemize}
+        \item As President of the Environment Club, I lead resource management and impactful events, inspiring environmental stewardship. We promote sustainability, engage the community, and address pressing challenges for a greener future.
+      \end{itemize}
+    }
+
+    \sectiontitle{personal projects}
+    \sectioncontent{
+
+        \project{\href{example.com}{Artificial Fiber for Robotic Arm}}{Dec 2022}
+        \begin{itemize}
+            \item Inspired from human Arm structure and network of communication, designed a Arm based on similar structure at fiber level of tissue and recreating the muscle using along building a network of communication using relay and artificial network just like nervous system of arm . However still manufacturing is in progress at PDEU SRP '22-23.
+        \end{itemize}
+        \spacevv
+       
+        \project{\href{example.com}{Autonomous Versatile Modular Drone}}{Dec 2022 - June 2023}
+        \begin{itemize}
+            \item  Developing an Autonomous Drone for use in versatile conditions along with being simply modular to carry a variety of payloads and delivery its mission.
+        \end{itemize}
+        \spacevv
+
+        \project{\href{example.com}{Only Grants}}{date}
+        \begin{itemize}
+            \item Website for finding the best suitable Grants available for Research and Development projects across with details along a Community for Researcher and deployed ML model for recommending profiles and grants according to one's portfolio. This project was made for SVNIT Dotslash 6.0 finals at SVNIT campus
+        \end{itemize}
+        \spacevv
+
+    }
+
+    \sectiontitle{volunteering}
+    \sectioncontent{
+      
+          \job{Senior Graphic Designer}{Symmetry}{Sept 2022 - Aug 2023}
+          \begin{itemize}
+            \item Works on Designing Content, Participated IFP and Give Hands-on Workshop for Adobe Professional (Photoshop)
+          \end{itemize}
+          \spacevv
+        
+          \job{PR and Marketing Head}{EnviroFreaks}{Aug 2022 - June 2022}
+          \begin{itemize}
+            \item I served as a dedicated volunteer and Marketing Head for environmental initiatives, passionately advocating for a sustainable future.
+          \end{itemize}
+            \spacevv
+
+        
+          \job{Graphic Design Head}{Apogee3}{Aug 2022 - Apr 2023}
+          \begin{itemize}
+            \item I was a founding member and served as the Head of Graphic Design and Editing at the Aerospace Club, contributing to its visual identity and content excellence.
+          \end{itemize}
+          \spacevv
+
+    }
+    
+    \sectiontitle{Events}
+    \sectioncontent{
+      
+          \job{Hackathons}{}{since Oct 2022}
+          \begin{itemize}
+            \item I've actively competed in hackathons, demonstrating strong problem-solving skills. From DAIICT's Tic-Tac-Toe to SVNIT's Dotslash 6.0 and Hack Out, I thrived in fast-paced coding challenges. I also engaged in online hackathons, focusing on Blockchain and ML, to explore cutting-edge tech and innovate. These experiences sharpened my skills and deepened my passion for tech-driven problem-solving
+          \end{itemize}
+          \spacevv
+
+          \job{Conferences}{}{}
+          \begin{itemize}
+            \item In 2023, I actively participated in three significant events. Firstly, as the Volunteer Coordinator for WAMS 2023, I managed paper sessions, led teams, and organized a successful cultural night, networking with brilliant minds in the field. Secondly, I took part in FigmaConfig 2023, gaining insights into design trends and innovative approaches. Lastly, I engaged in the transformative Amazon AWS India Summit, deepening my understanding of cloud technologies and their real-world applications, broadening my knowledge in cloud computing's significance for modern business solutions.
+          \end{itemize}
+          \spacevv
+    }
+
+    \normaltext \hfill \tiny Last updated \today
+
+    \end{paracol}
+
+\end{document}
